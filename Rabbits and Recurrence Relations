@@ -1,0 +1,15 @@
+def nrabbits(n, k):
+    a, b = 0, 1
+    if n == 1 or n == 2:
+        return b
+    for i in range(n):
+        total = b + a*k # here there is the general equation (n-1) + (n-2)*k
+        a = b
+        b = total
+    return a
+
+file = open('rosalind_fib.txt', "r")
+nk = file.read().split()
+n = int(nk[0])
+k = int(nk[1])
+print(nrabbits(n, k))
