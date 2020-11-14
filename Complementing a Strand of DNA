@@ -1,0 +1,5 @@
+file = open('rosalind_revc.txt', "r")
+string = file.read()
+print(string.translate((string.maketrans("ATGC", "TACG")))[::-1])
+# maketrans make a dictionary for each word in ascii 
+# translate will take this dictionary converting each word of the string
