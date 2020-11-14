@@ -1,0 +1,9 @@
+def countingDNA(string):
+    nucleotide = "ACGT"
+    return dict((base, string.count(base)) for base in nucleotide)#here it count each letter on the DNA string giving out a dictionary
+
+file = open('rosalind_dna.txt', "r")
+string = file.read()
+my_dict = (countingDNA(string))
+for key, value in my_dict.items():
+    print(value, end = " ") # printing each result as rosalind want
