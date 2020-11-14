@@ -1,0 +1,5 @@
+import re
+
+file = open('rosalind_rna.txt', "r")
+string = file.read()
+print(re.sub("T", "U", string)) # with re i can easily transform DNA into RNA
