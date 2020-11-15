@@ -1,0 +1,33 @@
+file = open('rosalind_gc.txt', "r")
+name = None
+seqs = dict()
+s = ''
+
+def readFASTA(file): # this function create a dictionary with the fasta file
+    name = None
+    seqs = dict()
+    for line in file:
+        # let's discard the newline at the end (if any)
+        line = line.rstrip()
+        # distinguish header from sequence
+        if line[0] == '>':  # or line.startswith('>')
+            # it is the header
+            name = line[1:]  # discarding the initial >
+            seqs[name] = ''
+        else:
+            # it is sequence
+            seqs[name] = seqs[name] + line
+    return seqs
+
+def GCcontent(dict): # here it counts the occurence of a GC and returns the GC content %
+    cache = [0,0]
+    for i in dict:
+        nucleotide = "GC"
+        GC = round(((dict[i].count("C") + dict[i].count("G"))/len(dict[i])*100),6)
+        if GC > cache[1]:
+            cache = [i, GC]
+    print(cache[0]) # printitng the reuslt as rosalind want
+    print(cache[1])
+    return
+
+print(GCcontent(readFASTA(file)))
