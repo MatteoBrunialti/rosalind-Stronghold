@@ -1,0 +1,11 @@
+file = open('rosalind_hamm.txt', "r")
+s, t = file.readlines() # taking the two line
+
+def count_mutation(s,t):
+    count = 0
+    for first, second in zip(s,t): 
+        if first != second:
+            count += 1
+    return count
+
+print(count_mutation(s,t))
