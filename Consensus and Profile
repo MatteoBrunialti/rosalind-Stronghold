@@ -1,0 +1,67 @@
+from statistics import mode
+
+file = open('rosalind_cons.txt', "r")
+name = None
+seqs = dict()
+s = ''
+
+
+def readFASTA(file):  # this function create a dictionary with the fasta file
+    name = None
+    seqs = dict()
+    for line in file:
+        # let's discard the newline at the end (if any)
+        line = line.rstrip()
+        # distinguish header from sequence
+        if line[0] == '>':  # or line.startswith('>')
+            # it is the header
+            name = line[1:]  # discarding the initial >
+            seqs[name] = ''
+        else:
+            # it is sequence
+            seqs[name] = seqs[name] + line
+    return seqs
+
+
+def countingDNA(string):
+    nucleotide = "ACGT"
+    return dict((base, string.count(base)) for base in nucleotide)
+
+
+def listFASTA(dict):
+    lst = []
+    for i in dict:
+        lst.append(dict[i])
+    return lst
+
+
+def most_common(List):
+    return mode(List)
+
+
+def profile(lDNA):  # it takes a list of list of the same length
+    d = {"consensus": "",
+         "A": ["A:"],
+         "C": ["C:"],
+         "G": ["G:"],
+         "T": ["T:"]}
+
+    for i in range(len(lDNA[0])):
+        cache = []
+        for j in range(len(lDNA)):
+            cache += lDNA[j][i]
+        d["consensus"] += (most_common(cache))
+        d["A"].append(cache.count("A"))
+        d["C"].append(cache.count("C"))
+        d["G"].append(cache.count("G"))
+        d["T"].append(cache.count("T"))
+        cache = ""
+    return d # giving us a dictionary of consensus string and the profile
+
+
+k = profile(listFASTA(readFASTA(file)))
+for i in k: #printing the result as rosalind want
+    if i == "consensus":
+        print(k[i])
+    else:
+        print(*k[i])
