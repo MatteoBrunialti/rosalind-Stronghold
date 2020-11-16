@@ -1,0 +1,12 @@
+def FirstLaw(k, m, n):
+    tot = k + n + m
+    # those are the equation to calculate the probability of picking two individual
+    #d is for two dominant h for two hibrid r for two recessive wheras 
+    d, h, r = (k * (k - 1)) / (tot * (tot - 1)), (m * (m - 1)) / (tot * (tot - 1)), (n * (n - 1)) / (tot * (tot - 1))
+    # dh stands for one indiviudual domaniant and one hibrid and so on
+    dh, hr, rd = (k * (m)) / (tot * (tot - 1)), (m * (n)) / (tot * (tot - 1)), (k * (n)) / (tot * (tot - 1))
+    return round(d + dh + 1 / 4 * (h) + dh + 2 * rd + 1 / 2 * h + hr, 5) # this is the final equation, it is a problem of genetic statistics 
+file = open('rosalind_iprb.txt').read()
+numbers = list(map(int, file.split()))
+
+print(FirstLaw(numbers[0], numbers[1], numbers[2]))
