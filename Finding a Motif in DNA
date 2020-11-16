@@ -1,0 +1,13 @@
+def find_motif(string, sub_string):
+    res = []
+    for i in range(len(string) - len(sub_string) + 1):
+        if string[i:i + len(sub_string)] == sub_string:
+            res.append(i + 1)
+    return res
+
+
+file = open('rosalind_subs.txt')
+lines = file.readlines()
+s = lines[0].rstrip('\n') # stripping the \n
+t = lines[1].rstrip('\n')
+print(*find_motif(s, t))
