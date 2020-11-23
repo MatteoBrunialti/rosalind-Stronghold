@@ -1,0 +1,7 @@
+from itertools import product
+
+file = open('rosalind_lexf.txt', "r").readlines()
+lst = list(map(str, file[0].split()))
+n = int(file[1])
+for i in product(lst, repeat = n):
+    print("".join(i))
