@@ -1,0 +1,9 @@
+from itertools import permutations
+
+file = open('rosalind_perm.txt', "r").readlines()
+n = int(file[0])
+lst = [number for number in range(1, n+1)]
+
+print(len(list(permutations(lst))))
+for i in permutations(lst):
+    print(*i)
