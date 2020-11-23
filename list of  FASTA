@@ -1,0 +1,8 @@
+def listFASTA(file):
+    lst = []
+    for record in SeqIO.parse(file, 'fasta'):
+        seq = ''
+        for nt in record.seq:
+            seq += nt
+        lst.append(seq)
+    return lst
