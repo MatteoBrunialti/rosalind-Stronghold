@@ -1,0 +1,17 @@
+from Bio import SeqIO
+from suffix_trees import STree
+
+def listFASTA(file):
+    lst = []
+    for record in SeqIO.parse(file, 'fasta'):
+        seq = ''
+        for nt in record.seq:
+            seq += nt
+        lst.append(seq)
+    return lst
+
+
+file = open('rosalind_lcsm.txt', 'r')
+lst = listFASTA(file)
+st = STree.STree(lst)
+print(st.lcs())
