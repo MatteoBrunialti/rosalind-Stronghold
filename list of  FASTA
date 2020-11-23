@@ -1,3 +1,5 @@
+from Bio import SeqIO
+
 def listFASTA(file):
     lst = []
     for record in SeqIO.parse(file, 'fasta'):
