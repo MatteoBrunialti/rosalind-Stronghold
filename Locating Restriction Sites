@@ -1,0 +1,18 @@
+from Bio import SeqIO
+
+
+def restriction_sites(sequence, complement):
+    for i in range(len(sequence)):
+        for j in range(i, len(sequence)):
+            sub_string = sequence[i:j + 1]
+            complement_sub_string = complement[i:j + 1]
+            if 4 <= len(sub_string) <= 12:
+                if sub_string == complement_sub_string[::-1]:
+                    print(i + 1, len(sub_string))
+    return
+
+
+file = SeqIO.read('rosalind_revp.txt', 'fasta')
+sequence = str(file.seq)
+complement = str(file.seq.complement())
+print(restriction_sites(sequence, complement))
