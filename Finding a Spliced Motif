@@ -1,0 +1,21 @@
+from Bio import SeqIO
+
+def listFASTA(file):
+    lst = []
+    for element in SeqIO.parse(file, 'fasta'):
+        lst.append(str(element.seq))
+    return lst
+
+def motif(string, sub):
+    stored = 0
+    for i in sub:
+        stored += string.find(i) + 1
+        print(stored, end = " ")
+        string = string[string.find(i) + 1:]
+
+    return
+
+list = listFASTA("rosalind_sseq.txt")
+s1 = list[0]
+s2 = list[1]
+print(motif(s1,s2))
