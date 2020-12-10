@@ -1,0 +1,27 @@
+from Bio import SeqIO
+
+def listFASTA(file):
+    lst = []
+    for element in SeqIO.parse(file, 'fasta'):
+        lst.append(str(element.seq))
+    return lst
+
+def tt_ratio(s1, s2):
+    transition = 0
+    transversion = 0
+    AG = ["A", "G"]
+    CT = ["C", "T"]
+    for el1, el2 in zip(s1, s2):
+        if el1 != el2:
+            if el1 in AG and el2 in CT:
+                transversion += 1
+            elif el1 in CT and el2 in AG:
+                transversion += 1
+            else:
+                transition += 1
+    return transition/transversion
+
+list = listFASTA("rosalind_tran.txt")
+s1 = list[0]
+s2 = list[1]
+print(tt_ratio(s1,s2))
