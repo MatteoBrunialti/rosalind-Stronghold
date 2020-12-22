@@ -1,0 +1,48 @@
+from Bio import SeqIO
+
+def LCS(v, w):
+    n = len(v) #"TGCATA"
+    m = len(w) #"ATCTGAT"
+    matrix = [[0 for x in range(n+1)] for x in range(m+1)]
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if v[j-1] == w[i-1]:
+                matrix[i][j] = matrix[i-1][j-1] + 1
+            else:
+                matrix[i][j] = max(matrix[i-1][j], matrix[i][j-1])
+
+    return matrix
+
+def printLCS(b, v, i, j):
+    lcs = ""
+    if i and j == 0:
+        return
+    while i > 0 and j > 0:
+        up = b[i-1][j]
+        horizontal = b[i-1][j-1]
+        left = b[i][j-1]
+        current = b[i][j]
+        if current > horizontal and current > up and current > left:
+            lcs += v[i-1]
+            i -= 1
+            j -= 1
+        elif current > horizontal and current == up:
+            i -= 1
+        else:
+            j -= 1
+    return lcs[::-1]
+
+def listFASTA(file):
+    lst = []
+    for element in SeqIO.parse(file, 'fasta'):
+        lst.append(str(element.seq))
+    return lst
+list = listFASTA("rosalind_lcsq.txt")
+X = list[0]
+Y = list[1]
+matrix = LCS(X,Y)
+
+i = len(matrix) - 1
+j = len(matrix[0]) - 1
+
+print(printLCS(matrix, Y, i, j))
